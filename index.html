@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samudra Jiwa | Portofolio & Filosofi</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Efek gelombang air halus */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+        .ocean-gradient {
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #ffffff 100%);
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 bg-ocean-50 selection:bg-ocean-200 selection:text-ocean-900 min-h-screen flex flex-col antialiased">
+
+    <!-- Navigasi Utama -->
+    <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-ocean-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <!-- Identitas / Logo -->
+            <a href="#beranda" class="group flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-ocean-500 to-sky-300 flex items-center justify-center text-white shadow-md shadow-ocean-200 group-hover:scale-105 transition-transform">
+                    <i data-lucide="waves" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-lg text-ocean-950 tracking-wide">PELAGOS</span>
+                    <span class="text-[10px] tracking-widest uppercase text-ocean-600 font-semibold">Laut & Pemikiran</span>
+                </div>
+            </a>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#beranda" class="hover:text-ocean-600 transition-colors">Beranda</a>
+                <a href="#filosofi" class="hover:text-ocean-600 transition-colors">Filosofi</a>
+                <a href="#galeri" class="hover:text-ocean-600 transition-colors">Galeri Laut</a>
+                <a href="#tentang" class="hover:text-ocean-600 transition-colors">Tentang</a>
+                <a href="#jurnal" class="hover:text-ocean-600 transition-colors">Catatan</a>
+            </nav>
+
+            <!-- Tombol Aksi & Generator Suara Alam Laut (Web Audio Synthesizer) -->
+            <div class="flex items-center gap-3">
+                <button id="ambientToggleBtn" title="Dengarkan deru ombak laut tenang" class="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-ocean-700 bg-ocean-100/70 hover:bg-ocean-200/80 rounded-full transition-all border border-ocean-200">
+                    <i data-lucide="volume-2" id="ambientIcon" class="w-4 h-4"></i>
+                    <span id="ambientStatusText" class="hidden sm:inline">Suara Ombak</span>
+                </button>
+                <a href="#kontak" class="hidden sm:inline-flex px-4 py-2 text-xs font-semibold text-white bg-ocean-600 hover:bg-ocean-700 rounded-full shadow-sm hover:shadow-md transition-all">
+                    Hubungi
+                </a>
+
+                <!-- Tombol Menu Mobile -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl text-ocean-800 hover:bg-ocean-100 transition-colors" aria-label="Buka Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Dropdown Mobile -->
+        <div id="mobileMenu" class="hidden md:hidden px-6 pt-3 pb-6 bg-white/95 border-b border-ocean-100 shadow-xl space-y-4">
+            <a href="#beranda" class="mobile-link block text-base font-medium text-slate-700 hover:text-ocean-600">Beranda</a>
+            <a href="#filosofi" class="mobile-link block text-base font-medium text-slate-700 hover:text-ocean-600">Filosofi</a>
+            <a href="#galeri" class="mobile-link block text-base font-medium text-slate-700 hover:text-ocean-600">Galeri Laut</a>
+            <a href="#tentang" class="mobile-link block text-base font-medium text-slate-700 hover:text-ocean-600">Tentang</a>
+            <a href="#jurnal" class="mobile-link block text-base font-medium text-slate-700 hover:text-ocean-600">Catatan</a>
+            <a href="#kontak" class="mobile-link block text-base font-medium text-ocean-600 font-semibold">Kirim Pesan</a>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <!-- Hero Section -->
+        <section id="beranda" class="relative min-h-[85vh] flex items-center justify-center py-20 px-4 overflow-hidden ocean-gradient">
+            <!-- Aksen latar dekoratif -->
+            <div class="absolute inset-0 pointer-events-none opacity-40">
+                <div class="absolute -top-32 -left-32 w-96 h-96 bg-ocean-300 rounded-full filter blur-3xl"></div>
+                <div class="absolute top-1/2 -right-32 w-96 h-96 bg-sky-200 rounded-full filter blur-3xl"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-ocean-200 text-ocean-700 text-xs font-semibold tracking-wider uppercase shadow-xs">
+                    <i data-lucide="compass" class="w-3.5 h-3.5 text-ocean-500"></i>
+                    Eksplorasi Kedalaman & Refleksi
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-ocean-950 leading-tight tracking-tight">
+                    Di Hadapan Lautan, <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-ocean-600 to-cyan-500 italic">Kita Menemukan Jiwa.</span>
+                </h1>
+
+                <p class="max-w-2xl mx-auto text-slate-600 text-base sm:text-lg leading-relaxed">
+                    Koleksi fotografi lanskap laut, ombak liar, dan cakrawala tak bertepi—disandingkan dengan petikan filsafat klasik tentang ketenangan, eksistensi, dan ketabahan batin.
+                </p>
+
+                <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
+                    <a href="#galeri" class="px-7 py-3.5 rounded-full bg-ocean-600 hover:bg-ocean-700 text-white font-medium shadow-lg shadow-ocean-500/20 hover:shadow-xl hover:shadow-ocean-500/30 transition-all flex items-center gap-2">
+                        <span>Jelajahi Galeri</span>
+                        <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#filosofi" class="px-7 py-3.5 rounded-full bg-white/90 hover:bg-white text-ocean-900 border border-ocean-200 font-medium hover:border-ocean-300 shadow-sm hover:shadow transition-all flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-4 h-4 text-ocean-600"></i>
+                        <span>Kutipan Filosofis</span>
+                    </a>
+                </div>
+
+                <!-- Kutipan Utama Pembuka -->
+                <div class="pt-8 max-w-xl mx-auto">
+                    <div class="glass-card rounded-2xl p-6 shadow-sm border border-white/60">
+                        <i data-lucide="quote" class="w-6 h-6 text-ocean-400 mx-auto mb-2 opacity-70"></i>
+                        <p class="font-serif italic text-slate-700 text-base">
+                            "Laut tidak pernah menanyakan apa yang engkau bawa, ia hanya meminta kerendahan hatimu untuk menerima luasnya."
+                        </p>
+                        <span class="block mt-3 text-xs font-semibold text-ocean-600 tracking-wider uppercase">— Catatan Samudra</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Filosofi Samudra (Quotes) -->
+        <section id="filosofi" class="py-24 px-4 sm:px-6 bg-white relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-ocean-500">Renungan & Hikmah</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ocean-950 mt-1">Gema Para Pemikir</h2>
+                        <p class="text-slate-600 max-w-xl mt-2 text-sm sm:text-base">
+                            Kutipan dari para filsuf terkemuka dan karya sastra klasik yang membaca ombak sebagai cermin eksistensi manusia.
+                        </p>
+                    </div>
+
+                    <!-- Tombol Interaktif: Generator Kutipan Acak -->
+                    <button id="randomQuoteBtn" class="self-start md:self-auto px-5 py-2.5 rounded-xl bg-ocean-50 hover:bg-ocean-100 text-ocean-700 text-sm font-semibold border border-ocean-200/80 transition-all flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-ocean-500"></i>
+                        <span>Kutipan Hari Ini</span>
+                    </button>
+                </div>
+
+                <!-- Grid Kutipan Filosofis -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    
+                    <!-- Kutipan 1: Camus -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-ocean-100 text-ocean-800">Eksistensialisme</span>
+                                <i data-lucide="sun-medium" class="w-5 h-5 text-ocean-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Di tengah puncak musim dingin yang membeku, akhirnya aku menyadari bahwa di dalam diriku terdapat musim panas yang tak terkalahkan."
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Albert Camus</h4>
+                            <p class="text-xs text-slate-500">L'Été (Musim Panas di Tepi Laut Aljazair)</p>
+                        </div>
+                    </div>
+
+                    <!-- Kutipan 2: Melville -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-sky-100 text-sky-800">Kesusastraan Samudra</span>
+                                <i data-lucide="anchor" class="w-5 h-5 text-sky-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Ada sebuah misteri yang begitu memikat dalam samudra ini, di mana debaran halusnya tampak membisikkan jiwa tersembunyi yang abadi."
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Herman Melville</h4>
+                            <p class="text-xs text-slate-500">Moby-Dick (1851)</p>
+                        </div>
+                    </div>
+
+                    <!-- Kutipan 3: Nietzsche -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-ocean-100 text-ocean-800">Keberanian Berlayar</span>
+                                <i data-lucide="compass" class="w-5 h-5 text-ocean-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Kita telah meninggalkan daratan dan menaiki kapal kita! Kita telah menghancurkan jembatan di belakang kita! Kini, terbentanglah laut yang lepas di hadapan kita."
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Friedrich Nietzsche</h4>
+                            <p class="text-xs text-slate-500">Die fröhliche Wissenschaft (The Gay Science)</p>
+                        </div>
+                    </div>
+
+                    <!-- Kutipan 4: Seneca -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-sky-100 text-sky-800">Stoisisme</span>
+                                <i data-lucide="shield" class="w-5 h-5 text-sky-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Seorang nakhoda yang tangguh tidak membuktikan keahliannya di perairan yang tenang, melainkan saat menghadapi amukan badai terbesar."
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Lucius Annaeus Seneca</h4>
+                            <p class="text-xs text-slate-500">Epistulae Morales ad Lucilium</p>
+                        </div>
+                    </div>
+
+                    <!-- Kutipan 5: Lao Tzu -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-ocean-100 text-ocean-800">Kebijaksanaan Timur</span>
+                                <i data-lucide="droplets" class="w-5 h-5 text-ocean-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Mengapa seratus sungai mengalir ke laut? Karena laut selalu menempatkan dirinya lebih rendah. Karena kerendahan hatinyalah ia menjadi raja atas segala air."
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Lao Tzu</h4>
+                            <p class="text-xs text-slate-500">Tao Te Ching (Bab 66)</p>
+                        </div>
+                    </div>
+
+                    <!-- Kutipan 6: Kahlil Gibran -->
+                    <div class="glass-card rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-5">
+                                <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-sky-100 text-sky-800">Puisi Kehidupan</span>
+                                <i data-lucide="feather" class="w-5 h-5 text-sky-400"></i>
+                            </div>
+                            <p class="font-serif text-lg text-slate-800 italic leading-relaxed">
+                                "Sebab apa itu kematian selain berdiri telanjang di hadapan angin dan melebur lebur ke dalam lautan luas matahari?"
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-5 border-t border-ocean-100">
+                            <h4 class="font-semibold text-ocean-950 text-sm">Kahlil Gibran</h4>
+                            <p class="text-xs text-slate-500">Sang Nabi (The Prophet, 1923)</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Galeri Laut (Portfolio Grid) -->
+        <section id="galeri" class="py-24 px-4 sm:px-6 bg-ocean-50/70 border-y border-ocean-100">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-ocean-500">Arsip Visual</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ocean-950 mt-1">Bentang Biru & Gelombang</h2>
+                    <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                        Setiap jepretan adalah usaha menangkap keheningan yang bergerak abadi. Klik foto untuk melihat detail dan catatan refleksi.
+                    </p>
+                </div>
+
+                 <!-- Filter Kategori -->
+                <div class="flex flex-wrap justify-center gap-2 mb-12">
+                    <button class="filter-btn active px-4 py-2 rounded-full text-xs font-semibold bg-ocean-600 text-white shadow-sm transition-all" data-category="all">Semua</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 hover:bg-ocean-100 border border-ocean-200 transition-all" data-category="ombak">Ombak & Arus</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 hover:bg-ocean-100 border border-ocean-200 transition-all" data-category="cakrawala">Cakrawala</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 hover:bg-ocean-100 border border-ocean-200 transition-all" data-category="kedalaman">Kedalaman</button>
+                    <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-600 hover:bg-ocean-100 border border-ocean-200 transition-all" data-category="pantai">Pantai Hening</button>
+                </div>
+
+                <!-- Grid Gambar -->
+                <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Item 1 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="ombak"
+                         onclick="openModal('Pecahan Busa Kebebasan', 'Bantuk gelombang laut yang menghantam karang, memecah energi murni.', 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80', 'Pantai Barat, 2024')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Ombak & Arus</span>
+                                <span>1/2000s · f/4.0</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Pecahan Busa Kebebasan</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Gejolak yang tak pernah sama, mengajarkan bahwa perubahan adalah satu-satunya kepastian.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="cakrawala"
+                         onclick="openModal('Garis Batas yang Semu', 'Pertemuan laut lepas dengan langit saat kabut senja menyapa.', 'https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&w=1200&q=80', 'Samudra Hindia, 2023')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Cakrawala</span>
+                                <span>1/250s · f/8.0</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Garis Batas yang Semu</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Cakrawala hanyalah ilusi pandangan kita; dunia selalu lebih luas dari apa yang sanggup dilihat mata.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="kedalaman"
+                         onclick="openModal('Ketenangan Palung Biru', 'Gradasi warna biru laut dalam yang menyerap seluruh riuh permukaan.', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80', 'Palung Pasifik, 2024')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Kedalaman</span>
+                                <span>1/500s · f/2.8</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Ketenangan Palung Biru</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Makin dalam kita menyelam, semakin hilang suara bising duniawi.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="pantai"
+                         onclick="openModal('Pesisir Pasir Putih', 'Jejak air yang mundur perlahan di atas butiran pasir saat fajar.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80', 'Kepulauan Karibia, 2023')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Pantai Hening</span>
+                                <span>1/640s · f/5.6</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Pesisir Pasir Putih</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Kebersihan nurani yang kembali murni setelah disapu ombak pemahaman.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 5 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="ombak"
+                         onclick="openModal('Karang yang Berserah', 'Batu karang kokoh yang membiarkan dirinya dibasuh ombak tanpa perlawanan sengit.', 'https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?auto=format&fit=crop&w=1200&q=80', 'Pantai Selatan, 2024')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Ombak & Arus</span>
+                                <span>1/1250s · f/4.5</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Karang yang Berserah</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Ketahanan sejati bukanlah kekerasan untuk menolak, tetapi keikhlasan untuk bertahan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="gallery-item group relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                         data-category="cakrawala"
+                         onclick="openModal('Sinar Keemasan Di Ujung Samudra', 'Perpaduan warna emas dan biru muda saat mentari terbit di tengah laut.', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80', 'Laut Mediterania, 2024')">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 loading="lazy">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                                <span>Cakrawala</span>
+                                <span>1/800s · f/6.3</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-slate-900 text-lg group-hover:text-ocean-600 transition-colors">Sinar di Ujung Samudra</h3>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">Harapan yang selalu bangkit segar setiap pagi di atas perairan dunia.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+         <!-- Section: Tentang Saya / Refleksi Pribadi -->
+        <section id="tentang" class="py-24 px-4 sm:px-6 bg-white">
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Foto Profil Pribadi / Konsep Visual -->
+                    <div class="md:col-span-5 relative">
+                        <div class="relative mx-auto max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-ocean-100">
+                            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" 
+                                 alt="" 
+                                 class="w-full h-[420px] object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-ocean-950/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-5 left-5 right-5 text-white">
+                                <p class="font-serif italic text-sm">"Di antara kamera dan laut, aku hanyalah seorang saksi keabadian."</p>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-28 h-28 bg-ocean-100 rounded-2xl -z-10 hidden sm:block"></div>
+                    </div>
+
+                    <!-- Profil & Narasi Filosofis -->
+                    <div class="md:col-span-7 space-y-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-ocean-500">Tentang Penjelajah</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ocean-950">
+                            Menangkap Gelombang, <br>Merenungi Keberadaan.
+                        </h2>
+
+                        <p class="text-slate-600 text-base leading-relaxed"> 
+                        Halo, saya adalah seorang penjelajah visual dan penikmat filsafat. Bagi saya, memotret samudra bukan semata perkara menangkap komposisi cahaya dan air, melainkan sebuah metode meditasi untuk memahami batas diri dan luasnya semesta.
+                        </p>
+
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            Website ini saya buat sebagai jurnal portofolio terbuka—menggabungkan kesunyian lautan dengan dialog pemikiran para filsuf seperti Camus, Nietzsche, hingga filsafat Timur yang mengajarkan kita untuk mengalir seperti air.
+                        </p>
+
+                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-ocean-100">
+                            <div>
+                                <span class="block font-serif text-2xl font-bold text-ocean-900">40+</span>
+                                <span class="text-xs text-slate-500">Ekspedisi Pesisir</span>
+                            </div>
+                            <div>
+                                <span class="block font-serif text-2xl font-bold text-ocean-900">12</span>
+                                <span class="text-xs text-slate-500">Esai Filosofis</span>
+                            </div>
+                            <div>
+                                <span class="block font-serif text-2xl font-bold text-ocean-900">&infin;</span>
+                                <span class="text-xs text-slate-500">Rasa Syukur</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <a href="#kontak" class="inline-flex items-center gap-2 text-sm font-semibold text-ocean-600 hover:text-ocean-700">
+                                <span>Mulai percakapan atau kolaborasi</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                     <!-- Section: Jurnal / Esai Mini -->
+        <section id="jurnal" class="py-24 px-4 sm:px-6 bg-ocean-50/50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-ocean-500">Jurnal Refleksi</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ocean-950 mt-1">Catatan Dari Tepian</h2>
+                    <p class="text-slate-600 mt-2 text-sm sm:text-base">
+                        Gagasan singkat seputar laut, seni fotografi, dan cara kita memandang kesunyian.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Artikel 1 -->
+                    <article class="bg-white rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs text-ocean-600 font-semibold mb-2">Refleksi · 5 Menit Baca</div>
+                            <h3 class="font-serif font-bold text-xl text-slate-900 mb-3 hover:text-ocean-600 transition-colors">
+                                Mengapa Pikiran Selalu Mendamba Laut?
+                            </h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Laut menawarkan pemandangan tanpa sudut tajam. Garis cakrawala datar yang konstan memberi sinyal neurobiologis pada otak kita untuk mengendurkan pertahanan dan kembali bernapas.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                            <span>Agustus 2024</span>
+                            <span class="font-medium text-ocean-600 flex items-center gap-1">Baca Selengkapnya &rarr;</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artikel 2 -->
+                    <article class="bg-white rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs text-ocean-600 font-semibold mb-2">Stoisisme · 7 Menit Baca</div>
+                            <h3 class="font-serif font-bold text-xl text-slate-900 mb-3 hover:text-ocean-600 transition-colors">
+                                Ketabahan Di Bawah Deru Badai
+                            </h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Pelajaran dari Seneca dan Marcus Aurelius: kita tidak bisa menghentikan ombak pasang, namun kita selalu punya kendali penuh atas bagaimana kemudi kapal kita diarahkan.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                            <span>Juli 2024</span>
+                            <span class="font-medium text-ocean-600 flex items-center gap-1">Baca Selengkapnya &rarr;</span>
+                        </div>
+                    </article>
+
+                    <!-- Artikel 3 -->
+                    <article class="bg-white rounded-2xl p-7 border border-ocean-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs text-ocean-600 font-semibold mb-2">Estetika · 4 Menit Baca</div>
+                            <h3 class="font-serif font-bold text-xl text-slate-900 mb-3 hover:text-ocean-600 transition-colors">
+                                Warna Biru dan Rasa Damai
+                            </h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                Eksplorasi palet warna samudra: bagaimana kombinasi biru muda dan putih membentuk representasi kejujuran batin dan kesucian tujuan hidup.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                            <span>Juni 2024</span>
+                            <span class="font-medium text-ocean-600 flex items-center gap-1">Baca Selengkapnya &rarr;</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section: Kontak / Terhubung -->
+        <section id="kontak" class="py-24 px-4 sm:px-6 bg-white relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-card rounded-3xl p-8 sm:p-12 border border-ocean-200 shadow-xl text-center space-y-6">
+                    <div class="w-14 h-14 bg-ocean-100 rounded-full flex items-center justify-center mx-auto text-ocean-600">
+                        <i data-lucide="mail" class="w-7 h-7"></i>
+                    </div>
+
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ocean-950">
+                        Kirimkan Sapaan dari Pantai Anda
+                    </h2>
+
+                    <p class="text-slate-600 max-w-xl mx-auto text-sm sm:text-base">
+                        Tertarik untuk berdiskusi seputar fotografi laut, berbagi pandangan filosofis, atau sekadar bertukar pesan yang damai?
+                    </p>
+
+                    <form id="contactForm" class="max-w-md mx-auto space-y-4 text-left pt-4">
+                        <div>
+                            <label for="nameInput" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Nama Anda</label>
+                            <input type="text" id="nameInput" required placeholder="Nama lengkap" class="w-full px-4 py-3 rounded-xl bg-ocean-50/50 border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:bg-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label for="emailInput" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Email</label>
+                            <input type="email" id="emailInput" required placeholder="alamat@email.com" class="w-full px-4 py-3 rounded-xl bg-ocean-50/50 border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:bg-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label for="msgInput" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Pesan / Refleksi</label>
+                            <textarea id="msgInput" rows="3" required placeholder="Tuliskan pesan atau kutipan favorit Anda..." class="w-full px-4 py-3 rounded-xl bg-ocean-50/50 border border-ocean-200 focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:bg-white text-sm transition-all"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-ocean-600 hover:bg-ocean-700 text-white font-medium shadow-md shadow-ocean-500/20 hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Kirim Pesan</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-ocean-950 text-ocean-100/80 py-14 px-4 sm:px-6 border-t border-ocean-900">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-ocean-800 flex items-center justify-center text-ocean-300">
+                    <i data-lucide="waves" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-white tracking-wide">PELAGOS</span>
+                    <p class="text-xs text-ocean-300/70">Portofolio Laut & Refleksi Filosofis</p>
+                </div>
+            </div>
+            
+            <!-- Tautan Media Sosial / GitHub -->
+            <div class="flex items-center gap-6 text-sm">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors flex items-center gap-1.5">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="#beranda" class="hover:text-white transition-colors">Kembali ke Atas</a>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-8 pt-8 border-t border-ocean-900/60 text-center text-xs text-ocean-300/50">
+            &copy; 2026 Pelagos Portfolio. Dirancang dengan ketenangan lautan dan kejernihan pemikiran.
+        </div>
+    </footer>
+
+    <!-- Modal Lightbox Galeri Gambar -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-ocean-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/40 text-white hover:bg-black/60 flex items-center justify-center transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="max-h-[65vh] overflow-hidden bg-slate-900 flex items-center justify-center">
+                <img id="modalImg" src="" alt="" class="w-full h-full object-contain max-h-[65vh]">
+            </div>
+            <div class="p-6">
+                <div class="flex items-center justify-between text-xs text-ocean-600 font-semibold mb-1">
+                    <span id="modalLocation">Lokasi</span>
+                </div>
+                <h3 id="modalTitle" class="font-serif font-bold text-xl text-ocean-950">Judul Foto</h3>
+                <p id="modalDesc" class="text-slate-600 text-sm mt-2 leading-relaxed">Deskripsi dan filosofi foto.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notifikasi Interaktif (Pengganti Alert) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-white border border-ocean-200 shadow-xl rounded-2xl p-4 flex items-center gap-3 text-slate-800">
+            <div class="w-9 h-9 rounded-full bg-ocean-100 text-ocean-600 flex items-center justify-center shrink-0">
+                <i data-lucide="check" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h4 id="toastTitle" class="text-xs font-bold text-ocean-950">Berhasil</h4>
+                <p id="toastMessage" class="text-xs text-slate-600">Pesan terkirim dengan damai.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Fungsionalitas Lengkap -->
+    <script>
+        // Inisialisasi Ikon Lucide
+        lucide.createIcons();
+
+        // 1. Menu Mobile Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Filter Kategori Galeri
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-ocean-600', 'text-white');
+                    b.classList.add('bg-white', 'text-slate-600');
+                });
+
+                btn.classList.add('active', 'bg-ocean-600', 'text-white');
+                btn.classList.remove('bg-white', 'text-slate-600');
+
+                const filter = btn.getAttribute('data-category');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 3. Modal / Lightbox Foto
+        const imageModal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalLocation = document.getElementById('modalLocation');
+
+        function openModal(title, desc, imgSrc, location) {
+            modalImg.src = imgSrc;
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
+            modalLocation.textContent = location;
+            imageModal.classList.remove('hidden');
+            imageModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                closeModal();
+            }
+        });
+
+        // 4. Toast Notification
+        function showToast(title, message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // 5. Form Kontak Interaktif
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value;
+            showToast('Pesan Terkirim', `Terima kasih, ${name}. Catatan refleksi Anda telah tersimpan dengan damai.`);
+            contactForm.reset();
+        });
+        
+        // 6. Generator Kutipan Harian Acak
+        const extraQuotes = [
+            {
+                quote: "Laut adalah tempat di mana batas raga kita berhenti dan ketidakterbatasan jiwa dimulai.",
+                author: "Gaston Bachelard",
+                book: "L'Eau et les Rêves (Air dan Mimpi)"
+            },
+            {
+                quote: "Pikiran yang tenang adalah seperti air jernih di telaga sunyi; kejelasan tidak dicari dengan bergejolak, melainkan dengan diam.",
+                author: "Marcus Aurelius",
+                book: "Meditations"
+            },
+            {
+                quote: "Seseorang tidak bisa menemukan samudra baru kecuali ia punya keberanian untuk kehilangan pandangan terhadap pantai.",
+                author: "André Gide",
+                book: "Les Faux-monnayeurs"
+            },
+            {
+                quote: "Menjadi seperti air: tak berbentuk, menyesuaikan dengan wadah, lembut namun mampu mengikis batu karang terkeras.",
+                author: "Zhuangzi",
+                book: "Kitab Zhuangzi"
+            }
+        ];
+
+        document.getElementById('randomQuoteBtn').addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * extraQuotes.length);
+            const item = extraQuotes[randomIndex];
+            showToast(item.author, `"${item.quote}" — ${item.book}`);
+        });
+
+        // 7. Synthesizer Suara Ombak Alami (Web Audio API murni tanpa file mp3 eksternal)
+        let audioCtx = null;
+        let isPlaying = false;
+        let noiseNode = null;
+        let filterNode = null;
+        let gainNode = null;
+        let lfo = null;
+        let lfoGain = null;
+
+        const ambientToggleBtn = document.getElementById('ambientToggleBtn');
+        const ambientStatusText = document.getElementById('ambientStatusText');
+        const ambientIcon = document.getElementById('ambientIcon');
+
+        function startOceanWaves() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            // Membuat Pink Noise Buffer (karakter suara ombak berbisik)
+            const bufferSize = audioCtx.sampleRate * 2;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+            for (let i = 0; i < bufferSize; i++) {
+                const white = Math.random() * 2 - 1;
+                b0 = 0.99886 * b0 + white * 0.0555179;
+                b1 = 0.99332 * b1 + white * 0.0750759;
+                b2 = 0.96900 * b2 + white * 0.1538520;
+                b3 = 0.86650 * b3 + white * 0.3104856;
+                b4 = 0.55000 * b4 + white * 0.5329522;
+                b5 = -0.7616 * b5 - white * 0.0168980;
+                output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                output[i] *= 0.11; // Volume aman
+                b6 = white * 0.115926;
+            }
+
+            noiseNode = audioCtx.createBufferSource();
+            noiseNode.buffer = noiseBuffer;
+            noiseNode.loop = true;
+
+            // Filter Low-pass yang mengayun mengikuti siklus ombak
+            filterNode = audioCtx.createBiquadFilter();
+            filterNode.type = 'lowpass';
+            filterNode.frequency.setValueAtTime(320, audioCtx.currentTime);
+
+            // LFO untuk memodulasi filter dan volume (siklus deru ombak 0.12 Hz ~ 8 detik per deburan)
+            lfo = audioCtx.createOscillator();
+            lfo.frequency.setValueAtTime(0.12, audioCtx.currentTime);
+
+            lfoGain = audioCtx.createGain();
+            lfoGain.gain.setValueAtTime(260, audioCtx.currentTime);
+
+            lfo.connect(filterNode.frequency);
+
+            gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.35, audioCtx.currentTime);
+
+            noiseNode.connect(filterNode);
+            filterNode.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            noiseNode.start();
+            lfo.start();
+        }
+
+        function stopOceanWaves() {
+            if (audioCtx) {
+                audioCtx.close();
+                audioCtx = null;
+            }
+        }
+
+        ambientToggleBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                try {
+                    startOceanWaves();
+                    isPlaying = true;
+                    ambientStatusText.textContent = "Ombak: Aktif";
+                    ambientToggleBtn.classList.add('bg-ocean-600', 'text-white');
+                    ambientToggleBtn.classList.remove('bg-ocean-100/70', 'text-ocean-700');
+                    showToast('Suara Laut Aktif', 'Mendengarkan deburan ombak sintetis penenang jiwa.');
+                } catch (err) {
+                    showToast('Info Audio', 'Izin audio diperlukan oleh peramban Anda.');
+                }
+            } else {
+                stopOceanWaves();
+                isPlaying = false;
+                ambientStatusText.textContent = "Suara Ombak";
+                ambientToggleBtn.classList.remove('bg-ocean-600', 'text-white');
+                ambientToggleBtn.classList.add('bg-ocean-100/70', 'text-ocean-700');
+            }
+        });
+    </script>
+</body>
+</html>
+
+                </div>
+            </div>
+        </section>
